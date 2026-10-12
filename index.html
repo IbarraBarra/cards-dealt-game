@@ -15,102 +15,127 @@
 
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
-<script type="text/babel" data-presets="react">
+<script>
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 const { useState, useEffect, useCallback, useRef } = React;
-
-/* ================================================================
-   SUPABASE CONFIG — paste your project's values here
-   Dashboard -> Project Settings -> API
-   ================================================================ */
 const SUPABASE_URL = "https://clnqyszlkuyhfrtgeaeq.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsbnF5c3psa3V5aGZydGdlYWVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2MDcyMjQsImV4cCI6MjEwNjE4MzIyNH0.kjz2siTQ-PpwY7NPJEgQyPK7f8ZLnUdReh2X1owfufo";
-
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-/* ------------------------------------------------------------------ */
-/*  STATIC CASE FILE — "Cards Dealt. A Cybersecurity Mystery"           */
-/* ------------------------------------------------------------------ */
-
 const VICTIM = {
   name: "Juliana Dowdy",
   age: 42,
-  bio: "Director of Marketing. Travels more often than anyone else in the company. While on another vacation there was an attempt to upload ransomware to her office computer.",
+  bio: "Director of Marketing. Travels more often than anyone else in the company. While on another vacation there was an attempt to upload ransomware to her office computer."
 };
-
 const HACKER_ID = "bernard";
-
 const SUSPECT_ORDER = [
-  "bernard", "janet", "lucilia", "jamison", "henry", "lawrence", "murphy", "brooklyn",
+  "bernard",
+  "janet",
+  "lucilia",
+  "jamison",
+  "henry",
+  "lawrence",
+  "murphy",
+  "brooklyn"
 ];
-
 const SUSPECTS = {
   bernard: {
-    name: "Bernard Hagas", occupation: "Security Officer", age: 52,
+    name: "Bernard Hagas",
+    occupation: "Security Officer",
+    age: 52,
     publicBio: "Humble, kind, and more intelligent than he appears. He is a relatively new employee that has immediately become invaluable to the company's security team. His is a face that anyone can trust.",
     statement: "\u201CI was on my usual rounds during the time of the attack. I didn't see anyone enter or leave the premises.\u201D",
     dossier: "Records show Bernard did not have a scheduled round during the time of the attempted attack. But it was not uncommon for him to take unscheduled walks through the building. He often said that one can never be too safe.",
     isHacker: true,
-    revealRound: 1,
+    revealRound: 1
   },
   janet: {
-    name: "Janet Hidrion", occupation: "Accounting Associate", age: 34,
+    name: "Janet Hidrion",
+    occupation: "Accounting Associate",
+    age: 34,
     publicBio: "Quiet, simple, and by-the-book. She is reliable and always under the radar. Does her work efficiently and read Mystery Crime novels on her breaks.",
     statement: "\u201CI was finishing up the quarterly expense reports at my desk and it was my first time working so late. I didn't even get up to use the restroom!\u201D",
     dossier: "Janet prefers a quiet workplace, so she rarely speaks to her coworkers about topics not related to work. Though she often day dreams about a more adventurous life and wishes she could break the rules just once.",
-    revealRound: 1,
+    revealRound: 1
   },
   lucilia: {
-    name: "Lucilia Dominguez", occupation: "Assistant to the Director of Marketing", age: 29,
+    name: "Lucilia Dominguez",
+    occupation: "Assistant to the Director of Marketing",
+    age: 29,
     publicBio: "Hard-working, driven, and always outspoken. She is never afraid to speak her mind.",
     statement: "\u201CI was glued to my desk. Ask anyone. I was working on a client proposal that Juliana decided to give me while she went to Bermuda...again.\u201D",
     dossier: "Lucilia works hard to be the change she wants to see in her workplace. Often frustrated by her superiors, she dreams of the good she could do if she had the kind of money her bosses do.",
-    revealRound: 1,
+    revealRound: 1
   },
   jamison: {
-    name: "Jamison O'Brien", occupation: "Security Officer", age: 31,
+    name: "Jamison O'Brien",
+    occupation: "Security Officer",
+    age: 31,
     publicBio: "Sharp, watchful, but a bit of a troublemaker sometimes.",
     statement: "\u201CI was in the Security Office, alone might I add. Bernard was off on one of his little walks he takes sometimes.\u201D",
     dossier: "Although Jamison loves his job, he can often be heard discussing how easy it would be to break into the building and use anyone's computer.",
-    revealRound: 1,
+    revealRound: 1
   },
   henry: {
-    name: "Henry Dillinger", occupation: "Lawyer", age: 45,
+    name: "Henry Dillinger",
+    occupation: "Lawyer",
+    age: 45,
     publicBio: "Short, stoic, and very secretive. Almost like he is always up to something.",
     statement: "\u201CI had nothing to do with this incident. Proposterous that anyone would think so.\u201D",
     dossier: "Henry rarely leaves the office before 8 P.M. and mostly keeps to himself. When a coworker speaks to him, he always seems very caught off guard.",
-    revealRound: 1,
+    revealRound: 1
   },
   lawrence: {
-    name: "Lawrence Shaw", occupation: "Murphy Shaw's son, Wall Street Broker", age: 35,
+    name: "Lawrence Shaw",
+    occupation: "Murphy Shaw's son, Wall Street Broker",
+    age: 35,
     publicBio: "Arrogant, narcissistic, and spoiled beyond belief. A man who has never really worked a day in his life.",
     statement: "\u201CWhy would I steal money from my own father? Everything he has is mine anyway.\u201D",
     dossier: "Lawrence has never had any interest in his father's company, but there have been rumors that he may be joining the Shareholder Board.",
-    revealRound: 2,
+    revealRound: 2
   },
   murphy: {
-    name: "Murphy Shaw", occupation: "Chief Shareholder", age: 64,
+    name: "Murphy Shaw",
+    occupation: "Chief Shareholder",
+    age: 64,
     publicBio: "Kind, intelligent, and understanding. Though he is blind to his son's nepotism and arrogance.",
     statement: "\u201CAnyone that tries to steal from what we have built here is not a welcome member. Thievery is not part of this company's culture!\u201D",
     dossier: "Murphy was hesitant at first to have his son on the Shareholder Board, but agreed that it will add to the influence he has over the company. He wouldn't want anything to jeopardize that.",
-    revealRound: 3,
+    revealRound: 3
   },
   brooklyn: {
-    name: "Brooklyn Salvatore", occupation: "Head of Security", age: 48,
+    name: "Brooklyn Salvatore",
+    occupation: "Head of Security",
+    age: 48,
     publicBio: "Loyal, humble, and empathetic to a fault. He always tries to see the best in people, even at their worst.",
     statement: "\u201CI'd back any one of these wonderful folks. We all have skeletons in our closet, but I believe I work with some of the most wonderful people alive!\u201D",
     dossier: "Everyone at the company seems to trust Brooklyn, often relying on them to keep secrets.",
-    revealRound: 4,
-  },
+    revealRound: 4
+  }
 };
-
 const EVIDENCE_LOG = [
   { id: "e1", round: 1, kind: "evidence", text: "The security footage was corrupted just before the attack took place, meaning none of the present employees' whereabouts can be confirmed." },
   { id: "e2", round: 1, kind: "evidence", text: "The drive used for the attempted attack appeared to have been a low-cost model that can be found at most retail stores." },
   { id: "e3", round: 1, kind: "evidence", text: "The audit logs show the hacker attempted twice to enter the password to Juliana's computer. The first was not successful, the second was successful." },
-
   { id: "d-bernard", round: 2, kind: "dossier", suspectId: "bernard" },
   { id: "d-janet", round: 2, kind: "dossier", suspectId: "janet" },
   { id: "d-lucilia", round: 2, kind: "dossier", suspectId: "lucilia" },
@@ -118,22 +143,18 @@ const EVIDENCE_LOG = [
   { id: "d-henry", round: 2, kind: "dossier", suspectId: "henry" },
   { id: "e4", round: 2, kind: "evidence", text: "In one of Janet's desk drawers, a collection of Crime Novels is found. Each with extensive notes on almost every page." },
   { id: "e5", round: 2, kind: "evidence", text: "Henry refuses to reveal what documents sit on his desk as they involve the company's Chief Shareholder, Murphy Shaw, and his son Lawrence." },
-
   { id: "d-lawrence", round: 3, kind: "dossier", suspectId: "lawrence" },
   { id: "e6", round: 3, kind: "evidence", text: "Jamison states he has been doing most of the work to keep watch lately since Bernard has been taking an online class. He has caught Bernard doing schoolwork while on company time a few times in the last month." },
   { id: "e7", round: 3, kind: "evidence", text: "A journal is discovered on Janet's desk with what looks like a story entitled 'The Last Corporate Call'. A story she claims is ficticious and only loosely based on her life." },
-
   { id: "d-murphy", round: 4, kind: "dossier", suspectId: "murphy" },
   { id: "e8", round: 4, kind: "evidence", text: "It is a known fact that Murphy and Lucilia do not get along. He's been heard saying he would do just about anything to get her fired." },
   { id: "e9", round: 4, kind: "evidence", text: "An email thread between Jamison and the Head of Security shows that Bernard was approved to attend a Computer Science class while on company time. As long as it did not interfere with his nightly work duties." },
   { id: "e10", round: 4, kind: "evidence", text: "Conversations between Lucilia and Jamison confirm their frustrations with the company letting so much slip through the cracks. They both agree that even Bernard is given too much freedom despite everything that has set him back in his life." },
   { id: "e11", round: 4, kind: "evidence", text: "Lawrence recalls Bernard's name sounding familiar to him. As if they had met before." },
-
   { id: "d-brooklyn", round: 5, kind: "dossier", suspectId: "brooklyn" },
   { id: "e12", round: 5, kind: "evidence", text: "Murphy reveals that Lawrence was fired from his Portfolio Investor Job for minor acts of embezzlement. Henry was tasked with drawing up contracts to add him to the Shareholder Board as part of Murphy's attempt to bury his son's actions." },
-  { id: "e13", round: 5, kind: "evidence", text: "Brooklyn confirms that they knew Bernard was one of the accounts that Lawrence used for his embezzling activities." },
+  { id: "e13", round: 5, kind: "evidence", text: "Brooklyn confirms that they knew Bernard was one of the accounts that Lawrence used for his embezzling activities." }
 ];
-
 const SOLUTION = `Bernard Hagas attempted to hack Juliana Dowdy.
 
 He had known that Lawrence had been fired from his Wall Street position for some time. Never feeling like Lawrence would ever get the punishment he deserved, Bernard took things into his own hands.
@@ -141,13 +162,7 @@ He had known that Lawrence had been fired from his Wall Street position for some
 He was always a smart man and listened everytime Jamison would talk about how easy it was to steal from their company. So he started learning about computer sciences and cyber security.
 
 His goal was to hack into Juliana's computer, inject ransomware into it to get his lost money back, and pin it on Lawrence. He wanted to see the son who seemed untouchable to pay for what he has done.`;
-
 const ROUND_LABELS = ["The Discovery", "The Fanning of the Flame", "The Not-So-Prodigal Son", "The Test of Wills", "The Breaking Clue"];
-
-/* ------------------------------------------------------------------ */
-/*  LOCAL IDENTITY (which room/player this browser is)                */
-/* ------------------------------------------------------------------ */
-
 function saveIdentity(roomCode, playerId, name) {
   localStorage.setItem("cardsDealt.identity", JSON.stringify({ roomCode, playerId, name }));
 }
@@ -155,39 +170,32 @@ function loadIdentity() {
   try {
     const raw = localStorage.getItem("cardsDealt.identity");
     return raw ? JSON.parse(raw) : null;
-  } catch { return null; }
+  } catch (e) {
+    return null;
+  }
 }
 function clearIdentity() {
   localStorage.removeItem("cardsDealt.identity");
 }
-
 function randomCode() {
   const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
   let out = "";
   for (let i = 0; i < 4; i++) out += letters[Math.floor(Math.random() * letters.length)];
   return out;
 }
-
-/* ------------------------------------------------------------------ */
-/*  APP                                                                */
-/* ------------------------------------------------------------------ */
-
 function App() {
-  const [screen, setScreen] = useState("start"); // start | lobby | game
+  var _a;
+  const [screen, setScreen] = useState("start");
   const [nameInput, setNameInput] = useState("");
   const [codeInput, setCodeInput] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-
-  const [room, setRoom] = useState(null);       // { code, phase, round, host_player_id }
-  const [players, setPlayers] = useState([]);   // [{id, name}]
-  const [votes, setVotes] = useState([]);       // [{player_id, suspect_id}]
+  const [room, setRoom] = useState(null);
+  const [players, setPlayers] = useState([]);
+  const [votes, setVotes] = useState([]);
   const [myPlayerId, setMyPlayerId] = useState(null);
   const [tab, setTab] = useState("case");
-
   const channelRef = useRef(null);
-
-  // Restore identity on load (refresh-proof).
   useEffect(() => {
     const id = loadIdentity();
     if (id) {
@@ -195,22 +203,26 @@ function App() {
       setNameInput(id.name);
       joinExistingRoom(id.roomCode, id.playerId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   function subscribeToRoom(code) {
     if (channelRef.current) sb.removeChannel(channelRef.current);
-    const channel = sb.channel(`room-${code}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "rooms", filter: `code=eq.${code}` },
-        (payload) => { if (payload.eventType !== "DELETE") setRoom(payload.new); })
-      .on("postgres_changes", { event: "*", schema: "public", table: "players", filter: `room_code=eq.${code}` },
-        () => refreshPlayers(code))
-      .on("postgres_changes", { event: "*", schema: "public", table: "votes", filter: `room_code=eq.${code}` },
-        () => refreshVotes(code))
-      .subscribe();
+    const channel = sb.channel(`room-${code}`).on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "rooms", filter: `code=eq.${code}` },
+      (payload) => {
+        if (payload.eventType !== "DELETE") setRoom(payload.new);
+      }
+    ).on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "players", filter: `room_code=eq.${code}` },
+      () => refreshPlayers(code)
+    ).on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "votes", filter: `room_code=eq.${code}` },
+      () => refreshVotes(code)
+    ).subscribe();
     channelRef.current = channel;
   }
-
   async function refreshPlayers(code) {
     const { data } = await sb.from("players").select("*").eq("room_code", code).order("created_at");
     if (data) setPlayers(data);
@@ -219,11 +231,14 @@ function App() {
     const { data } = await sb.from("votes").select("*").eq("room_code", code);
     if (data) setVotes(data);
   }
-
   async function joinExistingRoom(code, playerId) {
     setBusy(true);
     const { data: roomRow, error: roomErr } = await sb.from("rooms").select("*").eq("code", code).maybeSingle();
-    if (roomErr || !roomRow) { setBusy(false); clearIdentity(); return; }
+    if (roomErr || !roomRow) {
+      setBusy(false);
+      clearIdentity();
+      return;
+    }
     setRoom(roomRow);
     await refreshPlayers(code);
     await refreshVotes(code);
@@ -231,9 +246,9 @@ function App() {
     setScreen(roomRow.phase === "lobby" ? "lobby" : "game");
     setBusy(false);
   }
-
   async function handleCreate() {
-    setError(""); setBusy(true);
+    setError("");
+    setBusy(true);
     const name = nameInput.trim() || "Detective";
     try {
       let code, insertErr;
@@ -244,13 +259,9 @@ function App() {
         if (!insertErr) break;
       }
       if (insertErr) throw insertErr;
-
-      const { data: player, error: playerErr } = await sb
-        .from("players").insert({ room_code: code, name }).select().single();
+      const { data: player, error: playerErr } = await sb.from("players").insert({ room_code: code, name }).select().single();
       if (playerErr) throw playerErr;
-
       await sb.from("rooms").update({ host_player_id: player.id }).eq("code", code);
-
       saveIdentity(code, player.id, name);
       setMyPlayerId(player.id);
       await joinExistingRoom(code, player.id);
@@ -260,19 +271,16 @@ function App() {
       setBusy(false);
     }
   }
-
   async function handleJoin() {
-    setError(""); setBusy(true);
+    setError("");
+    setBusy(true);
     const code = codeInput.trim().toUpperCase();
     const name = nameInput.trim() || "Detective";
     try {
       const { data: roomRow, error: roomErr } = await sb.from("rooms").select("*").eq("code", code).maybeSingle();
       if (roomErr || !roomRow) throw new Error("No case found with that code.");
-
-      const { data: player, error: playerErr } = await sb
-        .from("players").insert({ room_code: code, name }).select().single();
+      const { data: player, error: playerErr } = await sb.from("players").insert({ room_code: code, name }).select().single();
       if (playerErr) throw playerErr;
-
       saveIdentity(code, player.id, name);
       setMyPlayerId(player.id);
       await joinExistingRoom(code, player.id);
@@ -282,13 +290,13 @@ function App() {
       setBusy(false);
     }
   }
-
   async function handleAdvance() {
     if (!room) return;
     const phase = room.phase;
     if (phase === "lobby") {
       await sb.from("rooms").update({ phase: "briefing", round: 0 }).eq("code", room.code);
-      setScreen("game"); setTab("case");
+      setScreen("game");
+      setTab("case");
     } else if (phase === "briefing") {
       await sb.from("rooms").update({ phase: "investigation", round: 1 }).eq("code", room.code);
     } else if (phase === "investigation") {
@@ -303,414 +311,169 @@ function App() {
       await sb.from("rooms").update({ phase: "reveal" }).eq("code", room.code);
     }
   }
-
   async function castVote(suspectId) {
     if (!myPlayerId || !room) return;
     await sb.from("votes").upsert({ player_id: myPlayerId, room_code: room.code, suspect_id: suspectId });
   }
-
   function leaveGame() {
     clearIdentity();
     if (channelRef.current) sb.removeChannel(channelRef.current);
-    setRoom(null); setPlayers([]); setVotes([]); setMyPlayerId(null);
-    setScreen("start"); setCodeInput(""); setError("");
+    setRoom(null);
+    setPlayers([]);
+    setVotes([]);
+    setMyPlayerId(null);
+    setScreen("start");
+    setCodeInput("");
+    setError("");
   }
-
   if (screen === "start") {
-    return (
-      <div style={S.app}>
-        <StartScreen
-          nameInput={nameInput} setNameInput={setNameInput}
-          codeInput={codeInput} setCodeInput={setCodeInput}
-          onCreate={handleCreate} onJoin={handleJoin}
-          error={error} busy={busy}
-        />
-      </div>
-    );
+    return /* @__PURE__ */ React.createElement("div", { style: S.app }, /* @__PURE__ */ React.createElement(
+      StartScreen,
+      {
+        nameInput,
+        setNameInput,
+        codeInput,
+        setCodeInput,
+        onCreate: handleCreate,
+        onJoin: handleJoin,
+        error,
+        busy
+      }
+    ));
   }
-
   if (screen === "lobby" && room) {
     const isHost = myPlayerId === room.host_player_id;
-    return (
-      <div style={S.app}>
-        <LobbyScreen
-          code={room.code} players={players} isHost={isHost}
-          onStart={handleAdvance} busy={busy} onLeave={leaveGame}
-        />
-      </div>
-    );
+    return /* @__PURE__ */ React.createElement("div", { style: S.app }, /* @__PURE__ */ React.createElement(
+      LobbyScreen,
+      {
+        code: room.code,
+        players,
+        isHost,
+        onStart: handleAdvance,
+        busy,
+        onLeave: leaveGame
+      }
+    ));
   }
-
   if (screen === "game" && room) {
     const isHost = myPlayerId === room.host_player_id;
-    const myVote = votes.find((v) => v.player_id === myPlayerId)?.suspect_id || null;
+    const myVote = ((_a = votes.find((v) => v.player_id === myPlayerId)) == null ? void 0 : _a.suspect_id) || null;
     const voteCounts = {};
-    votes.forEach((v) => { voteCounts[v.suspect_id] = (voteCounts[v.suspect_id] || 0) + 1; });
-
-    return (
-      <div style={S.app}>
-        <GameScreen
-          room={room} players={players} isHost={isHost}
-          tab={tab} setTab={setTab}
-          myVote={myVote} onVote={castVote}
-          votesIn={votes.length} voteCounts={voteCounts} totalVotes={votes.length}
-          onAdvance={handleAdvance} onLeave={leaveGame}
-        />
-      </div>
-    );
+    votes.forEach((v) => {
+      voteCounts[v.suspect_id] = (voteCounts[v.suspect_id] || 0) + 1;
+    });
+    return /* @__PURE__ */ React.createElement("div", { style: S.app }, /* @__PURE__ */ React.createElement(
+      GameScreen,
+      {
+        room,
+        players,
+        isHost,
+        tab,
+        setTab,
+        myVote,
+        onVote: castVote,
+        votesIn: votes.length,
+        voteCounts,
+        totalVotes: votes.length,
+        onAdvance: handleAdvance,
+        onLeave: leaveGame
+      }
+    ));
   }
-
-  return <div style={S.app}><div style={S.centerWrap}><p style={S.heroSub}>Loading…</p></div></div>;
+  return /* @__PURE__ */ React.createElement("div", { style: S.app }, /* @__PURE__ */ React.createElement("div", { style: S.centerWrap }, /* @__PURE__ */ React.createElement("p", { style: S.heroSub }, "Loading\u2026")));
 }
-
-/* ------------------------------------------------------------------ */
-/*  SCREENS                                                            */
-/* ------------------------------------------------------------------ */
-
 function StartScreen({ nameInput, setNameInput, codeInput, setCodeInput, onCreate, onJoin, error, busy }) {
-  return (
-    <div style={S.centerWrap}>
-      <div style={S.heroBlock}>
-        <h1 style={S.heroTitle}>Cards Dealt at{"\n"}Mosbius Designs</h1>
-        <p style={S.heroSub}>
-          Juliana Dowdy's computer was nearly compromised. Millions of dollars worth of sensitive information
-          almost stolen. An empty office, one perfect night, a lesson not yet learned, and five people who
-          each had reason enough. You're the detectives — work the case together, live, from your own devices.
-        </p>
-      </div>
-
-      <AOLWindow title="Sign On" menu={["File", "Sign On", "Buddies", "Help"]}>
-        <label style={S.label}>Screen Name</label>
-        <input
-          style={S.input} value={nameInput} placeholder="Detective Alias Optional"
-          onChange={(e) => setNameInput(e.target.value)}
-        />
-
-        <div style={S.divider} />
-
-        <button style={S.primaryBtn} onClick={onCreate} disabled={busy}>
-          Open a New Case
-        </button>
-
-        <div style={S.orRow}><span style={S.orLine} /><span style={S.orText}>OR</span><span style={S.orLine} /></div>
-
-        <label style={S.label}>Case Code</label>
-        <input
-          style={{ ...S.input, letterSpacing: "0.2em", textTransform: "uppercase" }}
-          value={codeInput} placeholder="ABCD" maxLength={4}
-          onChange={(e) => setCodeInput(e.target.value)}
-        />
-        <button style={S.secondaryBtn} onClick={onJoin} disabled={busy}>
-          Join the Case
-        </button>
-
-        {error && <p style={S.errorText}>&#9888; {error}</p>}
-      </AOLWindow>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.centerWrap }, /* @__PURE__ */ React.createElement("div", { style: S.heroBlock }, /* @__PURE__ */ React.createElement("h1", { style: S.heroTitle }, "Cards Dealt at", "\n", "Mosbius Designs"), /* @__PURE__ */ React.createElement("p", { style: S.heroSub }, "Juliana Dowdy's computer was nearly compromised. Millions of dollars worth of sensitive information almost stolen. An empty office, one perfect night, a lesson not yet learned, and five people who each had reason enough. You're the detectives \u2014 work the case together, live, from your own devices.")), /* @__PURE__ */ React.createElement(AOLWindow, { title: "Sign On", menu: ["File", "Sign On", "Buddies", "Help"] }, /* @__PURE__ */ React.createElement("label", { style: S.label }, "Screen Name"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      style: S.input,
+      value: nameInput,
+      placeholder: "Detective Alias Optional",
+      onChange: (e) => setNameInput(e.target.value)
+    }
+  ), /* @__PURE__ */ React.createElement("div", { style: S.divider }), /* @__PURE__ */ React.createElement("button", { style: S.primaryBtn, onClick: onCreate, disabled: busy }, "Open a New Case"), /* @__PURE__ */ React.createElement("div", { style: S.orRow }, /* @__PURE__ */ React.createElement("span", { style: S.orLine }), /* @__PURE__ */ React.createElement("span", { style: S.orText }, "OR"), /* @__PURE__ */ React.createElement("span", { style: S.orLine })), /* @__PURE__ */ React.createElement("label", { style: S.label }, "Case Code"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      style: __spreadProps(__spreadValues({}, S.input), { letterSpacing: "0.2em", textTransform: "uppercase" }),
+      value: codeInput,
+      placeholder: "ABCD",
+      maxLength: 4,
+      onChange: (e) => setCodeInput(e.target.value)
+    }
+  ), /* @__PURE__ */ React.createElement("button", { style: S.secondaryBtn, onClick: onJoin, disabled: busy }, "Join the Case"), error && /* @__PURE__ */ React.createElement("p", { style: S.errorText }, "\u26A0 ", error)));
 }
-
 function LobbyScreen({ code, players, isHost, onStart, busy, onLeave }) {
   const [copied, setCopied] = useState(false);
   function copyCode() {
-    navigator.clipboard?.writeText(code);
+    var _a;
+    (_a = navigator.clipboard) == null ? void 0 : _a.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   }
-  return (
-    <div style={S.centerWrap}>
-      <div style={S.heroBlock}>
-        <h1 style={S.heroTitleSm}>Assembling the Detectives</h1>
-        <p style={S.heroSub}>Share the code below — everyone joins from their own phone or laptop.</p>
-      </div>
-
-      <AOLWindow title="Buddy List" menu={["People", "Setup", "Privacy"]}>
-        <div style={S.codeRow}>
-          <span style={S.codeDisplay}>{code}</span>
-          <button style={S.iconBtn} onClick={copyCode} title="Copy code">
-            {copied ? "✓" : "Copy"}
-          </button>
-        </div>
-
-        <div style={S.divider} />
-
-        <p style={S.smallLabel}>Buddies Online ({players.length})</p>
-        <ul style={S.playerList}>
-          {players.map((p) => (
-            <li key={p.id} style={S.playerRow}>
-              <span style={S.playerDot} />
-              <span style={{ color: COLORS.amber, fontWeight: 600 }}>{p.name}</span>
-            </li>
-          ))}
-        </ul>
-
-        {isHost ? (
-          <>
-            <div style={S.divider} />
-            <button style={S.primaryBtn} onClick={onStart} disabled={busy}>
-              Open the Case
-            </button>
-            <p style={S.footnote}>Any group size works — everyone investigates together on their own device.</p>
-          </>
-        ) : (
-          <p style={S.footnote}>Waiting for the host to open the case…</p>
-        )}
-        <button style={{ ...S.secondaryBtn, marginTop: 10 }} onClick={onLeave}>Leave</button>
-      </AOLWindow>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.centerWrap }, /* @__PURE__ */ React.createElement("div", { style: S.heroBlock }, /* @__PURE__ */ React.createElement("h1", { style: S.heroTitleSm }, "Assembling the Detectives"), /* @__PURE__ */ React.createElement("p", { style: S.heroSub }, "Share the code below \u2014 everyone joins from their own phone or laptop.")), /* @__PURE__ */ React.createElement(AOLWindow, { title: "Buddy List", menu: ["People", "Setup", "Privacy"] }, /* @__PURE__ */ React.createElement("div", { style: S.codeRow }, /* @__PURE__ */ React.createElement("span", { style: S.codeDisplay }, code), /* @__PURE__ */ React.createElement("button", { style: S.iconBtn, onClick: copyCode, title: "Copy code" }, copied ? "\u2713" : "Copy")), /* @__PURE__ */ React.createElement("div", { style: S.divider }), /* @__PURE__ */ React.createElement("p", { style: S.smallLabel }, "Buddies Online (", players.length, ")"), /* @__PURE__ */ React.createElement("ul", { style: S.playerList }, players.map((p) => /* @__PURE__ */ React.createElement("li", { key: p.id, style: S.playerRow }, /* @__PURE__ */ React.createElement("span", { style: S.playerDot }), /* @__PURE__ */ React.createElement("span", { style: { color: COLORS.amber, fontWeight: 600 } }, p.name)))), isHost ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { style: S.divider }), /* @__PURE__ */ React.createElement("button", { style: S.primaryBtn, onClick: onStart, disabled: busy }, "Open the Case"), /* @__PURE__ */ React.createElement("p", { style: S.footnote }, "Any group size works \u2014 everyone investigates together on their own device.")) : /* @__PURE__ */ React.createElement("p", { style: S.footnote }, "Waiting for the host to open the case\u2026"), /* @__PURE__ */ React.createElement("button", { style: __spreadProps(__spreadValues({}, S.secondaryBtn), { marginTop: 10 }), onClick: onLeave }, "Leave")));
 }
-
 function GameScreen({ room, players, isHost, tab, setTab, myVote, onVote, votesIn, voteCounts, totalVotes, onAdvance, onLeave }) {
   const phase = room.phase;
   const round = room.round;
   const revealed = EVIDENCE_LOG.filter((e) => e.round <= round);
   const revealedEvidence = revealed.filter((e) => e.kind === "evidence");
   const revealedDossierIds = new Set(revealed.filter((e) => e.kind === "dossier").map((e) => e.suspectId));
-
-  return (
-    <div style={S.gameWrap}>
-      <div style={S.windowOuter}>
-        <div style={S.titleBar}>
-          <div style={S.titleBarLeft}>
-            <span>Chat Room: Mosbius Designs — {phaseLabel(phase, round)}</span>
-          </div>
-          <div style={S.winBtnRow}>
-            <div style={S.winBtn}>_</div>
-            <div style={S.winBtn}>&#9633;</div>
-            <div style={S.winBtn} onClick={onLeave} title="Leave the case">&times;</div>
-          </div>
-        </div>
-
-        {isHost && phase !== "reveal" && (
-          <div style={{ ...S.menuBar, justifyContent: "flex-end" }}>
-            <button style={S.hostBtn} onClick={onAdvance}>
-              {hostButtonLabel(phase)} &#9656;
-            </button>
-          </div>
-        )}
-
-        <div style={S.windowBody}>
-          {phase === "briefing" && <BriefingPanel />}
-
-          {phase === "investigation" && (
-            <>
-              <TabBar tab={tab} setTab={setTab} showVote={false} />
-              {tab === "case" && <CasePanel round={round} />}
-              {tab === "suspects" && <SuspectsPanel revealedDossierIds={revealedDossierIds} round={round} />}
-              {tab === "evidence" && <EvidencePanel evidence={revealedEvidence} round={round} />}
-            </>
-          )}
-
-          {phase === "voting" && (
-            <>
-              <TabBar tab={tab} setTab={setTab} showVote={true} />
-              {tab === "case" && <CasePanel round={round} />}
-              {tab === "suspects" && <SuspectsPanel revealedDossierIds={revealedDossierIds} round={round} />}
-              {tab === "evidence" && <EvidencePanel evidence={revealedEvidence} round={round} />}
-              {tab === "vote" && (
-                <VotePanel myVote={myVote} onVote={onVote} votesIn={votesIn} total={players.length} round={round} />
-              )}
-            </>
-          )}
-
-          {phase === "reveal" && (
-            <RevealPanel voteCounts={voteCounts} totalVotes={totalVotes} onLeave={onLeave} />
-          )}
-        </div>
-      </div>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.gameWrap }, /* @__PURE__ */ React.createElement("div", { style: S.windowOuter }, /* @__PURE__ */ React.createElement("div", { style: S.titleBar }, /* @__PURE__ */ React.createElement("div", { style: S.titleBarLeft }, /* @__PURE__ */ React.createElement("span", null, "Chat Room: Mosbius Designs \u2014 ", phaseLabel(phase, round))), /* @__PURE__ */ React.createElement("div", { style: S.winBtnRow }, /* @__PURE__ */ React.createElement("div", { style: S.winBtn }, "_"), /* @__PURE__ */ React.createElement("div", { style: S.winBtn }, "\u25A1"), /* @__PURE__ */ React.createElement("div", { style: S.winBtn, onClick: onLeave, title: "Leave the case" }, "\xD7"))), isHost && phase !== "reveal" && /* @__PURE__ */ React.createElement("div", { style: __spreadProps(__spreadValues({}, S.menuBar), { justifyContent: "flex-end" }) }, /* @__PURE__ */ React.createElement("button", { style: S.hostBtn, onClick: onAdvance }, hostButtonLabel(phase), " \u25B8")), /* @__PURE__ */ React.createElement("div", { style: S.windowBody }, phase === "briefing" && /* @__PURE__ */ React.createElement(BriefingPanel, null), phase === "investigation" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(TabBar, { tab, setTab, showVote: false }), tab === "case" && /* @__PURE__ */ React.createElement(CasePanel, { round }), tab === "suspects" && /* @__PURE__ */ React.createElement(SuspectsPanel, { revealedDossierIds, round }), tab === "evidence" && /* @__PURE__ */ React.createElement(EvidencePanel, { evidence: revealedEvidence, round })), phase === "voting" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(TabBar, { tab, setTab, showVote: true }), tab === "case" && /* @__PURE__ */ React.createElement(CasePanel, { round }), tab === "suspects" && /* @__PURE__ */ React.createElement(SuspectsPanel, { revealedDossierIds, round }), tab === "evidence" && /* @__PURE__ */ React.createElement(EvidencePanel, { evidence: revealedEvidence, round }), tab === "vote" && /* @__PURE__ */ React.createElement(VotePanel, { myVote, onVote, votesIn, total: players.length, round })), phase === "reveal" && /* @__PURE__ */ React.createElement(RevealPanel, { voteCounts, totalVotes, onLeave }))));
 }
-
 function BriefingPanel() {
-  return (
-    <div style={S.panel}>
-      <div style={S.card}>
-        <p style={S.smallLabel}>The victim</p>
-        <h3 style={S.victimName}>{VICTIM.name}, {VICTIM.age}</h3>
-        <p style={S.bodyText}>{VICTIM.bio}</p>
-      </div>
-      <div style={{ ...S.card, marginTop: 16 }}>
-        <p style={S.smallLabel}>Your job</p>
-        <p style={S.bodyText}>
-          Five people were in the office tonight. As the host reveals evidence and suspect
-          dossiers round by round, talk it through together — compare alibis, question
-          motives, and follow the timeline. When you're ready, cast your vote for who you
-          believe tried to hack Juliana Dowdy.
-        </p>
-      </div>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.panel }, /* @__PURE__ */ React.createElement("div", { style: S.card }, /* @__PURE__ */ React.createElement("p", { style: S.smallLabel }, "The victim"), /* @__PURE__ */ React.createElement("h3", { style: S.victimName }, VICTIM.name, ", ", VICTIM.age), /* @__PURE__ */ React.createElement("p", { style: S.bodyText }, VICTIM.bio)), /* @__PURE__ */ React.createElement("div", { style: __spreadProps(__spreadValues({}, S.card), { marginTop: 16 }) }, /* @__PURE__ */ React.createElement("p", { style: S.smallLabel }, "Your job"), /* @__PURE__ */ React.createElement("p", { style: S.bodyText }, "Five people were in the office tonight. As the host reveals evidence and suspect dossiers round by round, talk it through together \u2014 compare alibis, question motives, and follow the timeline. When you're ready, cast your vote for who you believe tried to hack Juliana Dowdy.")));
 }
-
 function TabBar({ tab, setTab, showVote }) {
   const tabs = [
     { id: "case", label: "Case" },
     { id: "suspects", label: "Suspects" },
     { id: "evidence", label: "Evidence" },
-    ...(showVote ? [{ id: "vote", label: "Vote" }] : []),
+    ...showVote ? [{ id: "vote", label: "Vote" }] : []
   ];
-  return (
-    <div style={S.tabBar}>
-      {tabs.map((t) => {
-        const active = tab === t.id;
-        return (
-          <button key={t.id} onClick={() => setTab(t.id)} style={active ? S.tabActive : S.tab}>
-            {t.label}
-          </button>
-        );
-      })}
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.tabBar }, tabs.map((t) => {
+    const active = tab === t.id;
+    return /* @__PURE__ */ React.createElement("button", { key: t.id, onClick: () => setTab(t.id), style: active ? S.tabActive : S.tab }, t.label);
+  }));
 }
-
 function CasePanel({ round }) {
-  return (
-    <div style={S.panel}>
-      <div style={S.card}>
-        <p style={S.smallLabel}>The victim</p>
-        <h3 style={S.victimName}>{VICTIM.name}, {VICTIM.age}</h3>
-        <p style={S.bodyText}>{VICTIM.bio}</p>
-      </div>
-      <div style={{ ...S.card, marginTop: 16 }}>
-        <p style={S.smallLabel}>Where you are</p>
-        <p style={S.bodyText}>
-          Round {round} of 5 — {ROUND_LABELS[round - 1]}. Check the Evidence tab for what's
-          been found, and the Suspects tab for what's been dug up on each of them. Discuss
-          out loud, then move to Vote once the host opens the final round.
-        </p>
-      </div>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.panel }, /* @__PURE__ */ React.createElement("div", { style: S.card }, /* @__PURE__ */ React.createElement("p", { style: S.smallLabel }, "The victim"), /* @__PURE__ */ React.createElement("h3", { style: S.victimName }, VICTIM.name, ", ", VICTIM.age), /* @__PURE__ */ React.createElement("p", { style: S.bodyText }, VICTIM.bio)), /* @__PURE__ */ React.createElement("div", { style: __spreadProps(__spreadValues({}, S.card), { marginTop: 16 }) }, /* @__PURE__ */ React.createElement("p", { style: S.smallLabel }, "Where you are"), /* @__PURE__ */ React.createElement("p", { style: S.bodyText }, "Round ", round, " of 5 \u2014 ", ROUND_LABELS[round - 1], ". Check the Evidence tab for what's been found, and the Suspects tab for what's been dug up on each of them. Discuss out loud, then move to Vote once the host opens the final round.")));
 }
-
 function SuspectsPanel({ revealedDossierIds, round }) {
   const visibleIds = SUSPECT_ORDER.filter((id) => SUSPECTS[id].revealRound <= round);
-  return (
-    <div style={S.panel}>
-      <div style={S.card}>
-        <p style={S.smallLabel}>{visibleIds.length} of {SUSPECT_ORDER.length} suspects identified so far</p>
-        {visibleIds.map((id) => {
-          const s = SUSPECTS[id];
-          const unlocked = revealedDossierIds.has(id);
-          return (
-            <div key={id} style={S.castRow}>
-              <p style={S.castName}>{s.name}</p>
-              <p style={S.castOcc}>{s.occupation}, {s.age}</p>
-              <p style={S.castBio}>{s.publicBio}</p>
-              <p style={S.statementText}>{s.statement}</p>
-              {unlocked && (
-                <div style={S.dossierBox}>
-                  <p style={S.dossierLabel}>Investigation notes</p>
-                  <p style={S.bodyText}>{s.dossier}</p>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.panel }, /* @__PURE__ */ React.createElement("div", { style: S.card }, /* @__PURE__ */ React.createElement("p", { style: S.smallLabel }, visibleIds.length, " of ", SUSPECT_ORDER.length, " suspects identified so far"), visibleIds.map((id) => {
+    const s = SUSPECTS[id];
+    const unlocked = revealedDossierIds.has(id);
+    return /* @__PURE__ */ React.createElement("div", { key: id, style: S.castRow }, /* @__PURE__ */ React.createElement("p", { style: S.castName }, s.name), /* @__PURE__ */ React.createElement("p", { style: S.castOcc }, s.occupation, ", ", s.age), /* @__PURE__ */ React.createElement("p", { style: S.castBio }, s.publicBio), /* @__PURE__ */ React.createElement("p", { style: S.statementText }, s.statement), unlocked && /* @__PURE__ */ React.createElement("div", { style: S.dossierBox }, /* @__PURE__ */ React.createElement("p", { style: S.dossierLabel }, "Investigation notes"), /* @__PURE__ */ React.createElement("p", { style: S.bodyText }, s.dossier)));
+  })));
 }
-
 function EvidencePanel({ evidence, round }) {
-  return (
-    <div style={S.panel}>
-      <div style={S.card}>
-        <p style={S.smallLabel}>Evidence log — round {round} of 5</p>
-        {evidence.length === 0 && <p style={S.bodyText}>None yet. The host will reveal the first findings shortly.</p>}
-        {[1, 2, 3, 4, 5].map((r) => {
-          const roundEvidence = evidence.filter((e) => e.round === r);
-          if (roundEvidence.length === 0) return null;
-          return (
-            <div key={r} style={{ marginTop: 14 }}>
-              <p style={S.roundHeading}>{ROUND_LABELS[r - 1]}</p>
-              {roundEvidence.map((e) => (
-                <div key={e.id} style={S.clueRow}>
-                  <span style={S.clueDot} />
-                  <p style={S.bodyText}>{e.text}</p>
-                </div>
-              ))}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.panel }, /* @__PURE__ */ React.createElement("div", { style: S.card }, /* @__PURE__ */ React.createElement("p", { style: S.smallLabel }, "Evidence log \u2014 round ", round, " of 5"), evidence.length === 0 && /* @__PURE__ */ React.createElement("p", { style: S.bodyText }, "None yet. The host will reveal the first findings shortly."), [1, 2, 3, 4, 5].map((r) => {
+    const roundEvidence = evidence.filter((e) => e.round === r);
+    if (roundEvidence.length === 0) return null;
+    return /* @__PURE__ */ React.createElement("div", { key: r, style: { marginTop: 14 } }, /* @__PURE__ */ React.createElement("p", { style: S.roundHeading }, ROUND_LABELS[r - 1]), roundEvidence.map((e) => /* @__PURE__ */ React.createElement("div", { key: e.id, style: S.clueRow }, /* @__PURE__ */ React.createElement("span", { style: S.clueDot }), /* @__PURE__ */ React.createElement("p", { style: S.bodyText }, e.text))));
+  })));
 }
-
 function VotePanel({ myVote, onVote, votesIn, total, round }) {
   const visibleIds = SUSPECT_ORDER.filter((id) => SUSPECTS[id].revealRound <= round);
-  return (
-    <div style={S.panel}>
-      <div style={S.card}>
-        <p style={S.smallLabel}>Who hacked Juliana Dowdy?</p>
-        <p style={S.footnote}>{votesIn} of {total} detectives have voted.</p>
-        <div style={{ marginTop: 10 }}>
-          {visibleIds.map((id) => {
-            const s = SUSPECTS[id];
-            const selected = myVote === id;
-            return (
-              <button key={id} onClick={() => onVote(id)} style={selected ? S.suspectBtnActive : S.suspectBtn}>
-                {s.name}
-              </button>
-            );
-          })}
-        </div>
-        {myVote && <p style={S.footnote}>Your vote: {SUSPECTS[myVote].name}. You can change it any time before the reveal.</p>}
-      </div>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.panel }, /* @__PURE__ */ React.createElement("div", { style: S.card }, /* @__PURE__ */ React.createElement("p", { style: S.smallLabel }, "Who hacked Juliana Dowdy?"), /* @__PURE__ */ React.createElement("p", { style: S.footnote }, votesIn, " of ", total, " detectives have voted."), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 10 } }, visibleIds.map((id) => {
+    const s = SUSPECTS[id];
+    const selected = myVote === id;
+    return /* @__PURE__ */ React.createElement("button", { key: id, onClick: () => onVote(id), style: selected ? S.suspectBtnActive : S.suspectBtn }, s.name);
+  })), myVote && /* @__PURE__ */ React.createElement("p", { style: S.footnote }, "Your vote: ", SUSPECTS[myVote].name, ". You can change it any time before the reveal.")));
 }
-
 function RevealPanel({ voteCounts, totalVotes, onLeave }) {
   const killer = SUSPECTS[HACKER_ID];
   const sortedVotes = Object.entries(voteCounts).sort((a, b) => b[1] - a[1]);
-
-  return (
-    <div style={S.panel}>
-      <div style={{ ...S.card, ...S.revealCard }}>
-        <p style={S.smallLabelWine}>The verdict</p>
-        <h3 style={S.revealName}>{killer.name}</h3>
-        <div style={S.solutionText}>
-          {SOLUTION.split("\n\n").map((p, i) => <p key={i} style={S.bodyTextLg}>{p}</p>)}
-        </div>
-      </div>
-
-      <div style={{ ...S.card, marginTop: 16 }}>
-        <p style={S.smallLabel}>How the room voted ({totalVotes} votes)</p>
-        {sortedVotes.length === 0 && <p style={S.bodyText}>No votes were cast.</p>}
-        {sortedVotes.map(([id, count]) => (
-          <div key={id} style={S.voteResultRow}>
-            <span style={{ ...S.bodyText, color: id === HACKER_ID ? COLORS.sage : COLORS.parchment }}>
-              {SUSPECTS[id].name} {id === HACKER_ID && "— correct"}
-            </span>
-            <span style={S.voteCount}>{count}</span>
-          </div>
-        ))}
-      </div>
-
-      <button style={{ ...S.secondaryBtn, marginTop: 16 }} onClick={onLeave}>
-        Leave This Case
-      </button>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.panel }, /* @__PURE__ */ React.createElement("div", { style: __spreadValues(__spreadValues({}, S.card), S.revealCard) }, /* @__PURE__ */ React.createElement("p", { style: S.smallLabelWine }, "The verdict"), /* @__PURE__ */ React.createElement("h3", { style: S.revealName }, killer.name), /* @__PURE__ */ React.createElement("div", { style: S.solutionText }, SOLUTION.split("\n\n").map((p, i) => /* @__PURE__ */ React.createElement("p", { key: i, style: S.bodyTextLg }, p)))), /* @__PURE__ */ React.createElement("div", { style: __spreadProps(__spreadValues({}, S.card), { marginTop: 16 }) }, /* @__PURE__ */ React.createElement("p", { style: S.smallLabel }, "How the room voted (", totalVotes, " votes)"), sortedVotes.length === 0 && /* @__PURE__ */ React.createElement("p", { style: S.bodyText }, "No votes were cast."), sortedVotes.map(([id, count]) => /* @__PURE__ */ React.createElement("div", { key: id, style: S.voteResultRow }, /* @__PURE__ */ React.createElement("span", { style: __spreadProps(__spreadValues({}, S.bodyText), { color: id === HACKER_ID ? COLORS.sage : COLORS.parchment }) }, SUSPECTS[id].name, " ", id === HACKER_ID && "\u2014 correct"), /* @__PURE__ */ React.createElement("span", { style: S.voteCount }, count)))), /* @__PURE__ */ React.createElement("button", { style: __spreadProps(__spreadValues({}, S.secondaryBtn), { marginTop: 16 }), onClick: onLeave }, "Leave This Case"));
 }
-
-/* ------------------------------------------------------------------ */
-/*  LABEL HELPERS                                                      */
-/* ------------------------------------------------------------------ */
-
 function phaseLabel(phase, round) {
   if (phase === "lobby") return "Lobby";
   if (phase === "briefing") return "Briefing";
-  if (phase === "investigation") return `Investigation — ${ROUND_LABELS[round - 1] || ""}`;
+  if (phase === "investigation") return `Investigation \u2014 ${ROUND_LABELS[round - 1] || ""}`;
   if (phase === "voting") return "Final Accusation";
   if (phase === "reveal") return "The Truth";
   return "";
 }
-
 function hostButtonLabel(phase) {
   if (phase === "lobby") return "Open the case";
   if (phase === "briefing") return "Begin investigation";
@@ -718,11 +481,6 @@ function hostButtonLabel(phase) {
   if (phase === "voting") return "Reveal the hacker";
   return "Continue";
 }
-
-/* ------------------------------------------------------------------ */
-/*  STYLE SYSTEM — retro AOL / Windows 95 chrome                      */
-/* ------------------------------------------------------------------ */
-
 const COLORS = {
   desktop: "#008080",
   ink: "#000000",
@@ -741,104 +499,160 @@ const COLORS = {
   titleBarFrom: "#000084",
   titleBarTo: "#1084d0",
   visited: "#800080",
-  buddyGreen: "#00b400",
+  buddyGreen: "#00b400"
 };
-
 const bevel = {
   raised: {
-    borderStyle: "solid", borderWidth: 2,
-    borderTopColor: COLORS.faceHi, borderLeftColor: COLORS.faceHi,
-    borderRightColor: COLORS.faceLo2, borderBottomColor: COLORS.faceLo2,
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderTopColor: COLORS.faceHi,
+    borderLeftColor: COLORS.faceHi,
+    borderRightColor: COLORS.faceLo2,
+    borderBottomColor: COLORS.faceLo2
   },
   raisedSoft: {
-    borderStyle: "solid", borderWidth: 1,
-    borderTopColor: COLORS.faceHi, borderLeftColor: COLORS.faceHi,
-    borderRightColor: COLORS.faceLo, borderBottomColor: COLORS.faceLo,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderTopColor: COLORS.faceHi,
+    borderLeftColor: COLORS.faceHi,
+    borderRightColor: COLORS.faceLo,
+    borderBottomColor: COLORS.faceLo
   },
   sunken: {
-    borderStyle: "solid", borderWidth: 2,
-    borderTopColor: COLORS.faceLo2, borderLeftColor: COLORS.faceLo2,
-    borderRightColor: COLORS.faceHi, borderBottomColor: COLORS.faceHi,
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderTopColor: COLORS.faceLo2,
+    borderLeftColor: COLORS.faceLo2,
+    borderRightColor: COLORS.faceHi,
+    borderBottomColor: COLORS.faceHi
   },
   sunkenSoft: {
-    borderStyle: "solid", borderWidth: 1,
-    borderTopColor: COLORS.faceLo, borderLeftColor: COLORS.faceLo,
-    borderRightColor: COLORS.faceHi, borderBottomColor: COLORS.faceHi,
-  },
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderTopColor: COLORS.faceLo,
+    borderLeftColor: COLORS.faceLo,
+    borderRightColor: COLORS.faceHi,
+    borderBottomColor: COLORS.faceHi
+  }
 };
-
 const SYS_FONT = "Verdana, Arial, Helvetica, sans-serif";
-
 const S = {
   app: {
     minHeight: "100vh",
     background: COLORS.desktop,
-    backgroundImage:
-      "repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 4px)",
+    backgroundImage: "repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 4px)",
     color: COLORS.ink,
     fontFamily: SYS_FONT,
     fontSize: 12,
-    paddingBottom: 40,
+    paddingBottom: 40
   },
   centerWrap: {
-    maxWidth: 460, margin: "0 auto", padding: "28px 14px 40px",
-    display: "flex", flexDirection: "column", alignItems: "center",
+    maxWidth: 460,
+    margin: "0 auto",
+    padding: "28px 14px 40px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   },
   heroBlock: { textAlign: "center", marginBottom: 16 },
   heroTitle: {
-    fontFamily: "'VT323', monospace", fontWeight: 400, fontSize: 34,
-    lineHeight: 1.15, margin: "10px 0 8px", color: "#ffffff", whiteSpace: "pre-line",
-    textShadow: "2px 2px 0 #000084",
+    fontFamily: "'VT323', monospace",
+    fontWeight: 400,
+    fontSize: 34,
+    lineHeight: 1.15,
+    margin: "10px 0 8px",
+    color: "#ffffff",
+    whiteSpace: "pre-line",
+    textShadow: "2px 2px 0 #000084"
   },
   heroTitleSm: {
-    fontFamily: "'VT323', monospace", fontWeight: 400, fontSize: 26,
-    margin: "10px 0 6px", color: "#ffffff", textShadow: "2px 2px 0 #000084",
+    fontFamily: "'VT323', monospace",
+    fontWeight: 400,
+    fontSize: 26,
+    margin: "10px 0 6px",
+    color: "#ffffff",
+    textShadow: "2px 2px 0 #000084"
   },
   heroSub: { fontSize: 12.5, lineHeight: 1.5, color: "#e8e8e8", maxWidth: 400, margin: "0 auto" },
-
-  windowOuter: { width: "100%", background: COLORS.face, ...bevel.raised, boxShadow: "3px 3px 0 rgba(0,0,0,0.35)" },
+  windowOuter: __spreadProps(__spreadValues({ width: "100%", background: COLORS.face }, bevel.raised), { boxShadow: "3px 3px 0 rgba(0,0,0,0.35)" }),
   titleBar: {
     background: `linear-gradient(90deg, ${COLORS.titleBarFrom}, ${COLORS.titleBarTo})`,
-    color: "#ffffff", fontFamily: SYS_FONT, fontWeight: 700, fontSize: 12.5,
-    padding: "4px 4px 4px 8px", display: "flex", alignItems: "center", justifyContent: "space-between",
-    letterSpacing: 0.3,
+    color: "#ffffff",
+    fontFamily: SYS_FONT,
+    fontWeight: 700,
+    fontSize: 12.5,
+    padding: "4px 4px 4px 8px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    letterSpacing: 0.3
   },
   titleBarLeft: { display: "flex", alignItems: "center", gap: 6 },
   winBtnRow: { display: "flex", gap: 3 },
-  winBtn: {
-    width: 16, height: 15, background: COLORS.face, color: COLORS.ink, fontSize: 10, fontWeight: 700,
-    display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1, cursor: "pointer",
-    ...bevel.raisedSoft,
-  },
+  winBtn: __spreadValues({
+    width: 16,
+    height: 15,
+    background: COLORS.face,
+    color: COLORS.ink,
+    fontSize: 10,
+    fontWeight: 700,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    lineHeight: 1,
+    cursor: "pointer"
+  }, bevel.raisedSoft),
   menuBar: {
-    background: COLORS.face, borderBottom: `1px solid ${COLORS.faceLo}`,
-    display: "flex", gap: 14, padding: "3px 10px", fontSize: 11.5,
+    background: COLORS.face,
+    borderBottom: `1px solid ${COLORS.faceLo}`,
+    display: "flex",
+    gap: 14,
+    padding: "3px 10px",
+    fontSize: 11.5
   },
   windowBody: { background: COLORS.face, padding: 14 },
-
-  card: { width: "100%", background: COLORS.cardBg, ...bevel.sunkenSoft, padding: 16, boxSizing: "border-box", fontFamily: SYS_FONT },
+  card: __spreadProps(__spreadValues({ width: "100%", background: COLORS.cardBg }, bevel.sunkenSoft), { padding: 16, boxSizing: "border-box", fontFamily: SYS_FONT }),
   label: { fontSize: 11.5, color: COLORS.ink, marginBottom: 5, display: "block", fontWeight: 700 },
-  input: {
-    width: "100%", background: "#ffffff", ...bevel.sunkenSoft,
-    padding: "7px 8px", color: COLORS.ink, fontSize: 13,
-    marginBottom: 12, boxSizing: "border-box", fontFamily: SYS_FONT, borderRadius: 0,
-  },
+  input: __spreadProps(__spreadValues({
+    width: "100%",
+    background: "#ffffff"
+  }, bevel.sunkenSoft), {
+    padding: "7px 8px",
+    color: COLORS.ink,
+    fontSize: 13,
+    marginBottom: 12,
+    boxSizing: "border-box",
+    fontFamily: SYS_FONT,
+    borderRadius: 0
+  }),
   divider: { height: 2, background: COLORS.faceLo, borderBottom: `1px solid ${COLORS.faceHi}`, margin: "14px 0" },
-  primaryBtn: {
-    width: "100%", background: COLORS.face, color: COLORS.ink, fontWeight: 700,
-    fontSize: 13, padding: "8px 0", cursor: "pointer", fontFamily: SYS_FONT, ...bevel.raised,
-  },
-  secondaryBtn: {
-    width: "100%", background: COLORS.face, color: COLORS.ink, fontWeight: 400,
-    fontSize: 12.5, padding: "7px 0", cursor: "pointer", fontFamily: SYS_FONT, ...bevel.raised,
-  },
+  primaryBtn: __spreadValues({
+    width: "100%",
+    background: COLORS.face,
+    color: COLORS.ink,
+    fontWeight: 700,
+    fontSize: 13,
+    padding: "8px 0",
+    cursor: "pointer",
+    fontFamily: SYS_FONT
+  }, bevel.raised),
+  secondaryBtn: __spreadValues({
+    width: "100%",
+    background: COLORS.face,
+    color: COLORS.ink,
+    fontWeight: 400,
+    fontSize: 12.5,
+    padding: "7px 0",
+    cursor: "pointer",
+    fontFamily: SYS_FONT
+  }, bevel.raised),
   orRow: { display: "flex", alignItems: "center", gap: 8, margin: "14px 0" },
   orLine: { flex: 1, height: 1, background: COLORS.faceLo },
   orText: { fontSize: 11, color: COLORS.parchmentDim, fontWeight: 700 },
   errorText: { color: COLORS.wine, fontSize: 12, marginTop: 10, fontWeight: 700 },
   codeRow: { display: "flex", alignItems: "center", justifyContent: "space-between" },
   codeDisplay: { fontFamily: "'VT323', monospace", fontSize: 36, letterSpacing: "0.15em", color: COLORS.wine },
-  iconBtn: { background: COLORS.face, padding: "6px 10px", cursor: "pointer", fontFamily: SYS_FONT, fontWeight: 700, fontSize: 12, ...bevel.raisedSoft },
+  iconBtn: __spreadValues({ background: COLORS.face, padding: "6px 10px", cursor: "pointer", fontFamily: SYS_FONT, fontWeight: 700, fontSize: 12 }, bevel.raisedSoft),
   smallLabel: { fontSize: 11.5, color: COLORS.ink, marginBottom: 8, fontWeight: 700 },
   smallLabelWine: { fontSize: 11.5, color: "#ffffff", background: COLORS.wine, display: "inline-block", padding: "2px 6px", marginBottom: 8, fontWeight: 700 },
   playerList: { listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 4 },
@@ -846,22 +660,51 @@ const S = {
   playerDot: { width: 8, height: 8, borderRadius: "50%", background: COLORS.buddyGreen, display: "inline-block", border: "1px solid #005700" },
   footnote: { fontSize: 11.5, color: "#333333", marginTop: 10, lineHeight: 1.4, fontStyle: "italic" },
   gameWrap: { maxWidth: 520, margin: "0 auto", padding: "20px 12px 40px" },
-  hostBtn: {
-    display: "flex", alignItems: "center", gap: 6, background: COLORS.face, color: COLORS.ink,
-    fontWeight: 700, fontSize: 12, padding: "6px 10px", cursor: "pointer", fontFamily: SYS_FONT, ...bevel.raisedSoft,
-  },
+  hostBtn: __spreadValues({
+    display: "flex",
+    alignItems: "center",
+    gap: 6,
+    background: COLORS.face,
+    color: COLORS.ink,
+    fontWeight: 700,
+    fontSize: 12,
+    padding: "6px 10px",
+    cursor: "pointer",
+    fontFamily: SYS_FONT
+  }, bevel.raisedSoft),
   panel: { display: "flex", flexDirection: "column" },
   tabBar: { display: "flex", gap: 3, marginBottom: 0, flexWrap: "wrap", paddingLeft: 4 },
-  tab: {
-    display: "flex", alignItems: "center", gap: 5, background: COLORS.face, color: "#333",
-    padding: "6px 10px", fontSize: 12, cursor: "pointer", fontFamily: SYS_FONT,
-    ...bevel.raisedSoft, borderBottom: "none", position: "relative", top: 1,
-  },
-  tabActive: {
-    display: "flex", alignItems: "center", gap: 5, background: COLORS.cardBg, color: COLORS.ink,
-    padding: "6px 10px", fontSize: 12, cursor: "pointer", fontFamily: SYS_FONT, fontWeight: 700,
-    ...bevel.raisedSoft, borderBottomColor: COLORS.cardBg, position: "relative", top: 1,
-  },
+  tab: __spreadProps(__spreadValues({
+    display: "flex",
+    alignItems: "center",
+    gap: 5,
+    background: COLORS.face,
+    color: "#333",
+    padding: "6px 10px",
+    fontSize: 12,
+    cursor: "pointer",
+    fontFamily: SYS_FONT
+  }, bevel.raisedSoft), {
+    borderBottom: "none",
+    position: "relative",
+    top: 1
+  }),
+  tabActive: __spreadProps(__spreadValues({
+    display: "flex",
+    alignItems: "center",
+    gap: 5,
+    background: COLORS.cardBg,
+    color: COLORS.ink,
+    padding: "6px 10px",
+    fontSize: 12,
+    cursor: "pointer",
+    fontFamily: SYS_FONT,
+    fontWeight: 700
+  }, bevel.raisedSoft), {
+    borderBottomColor: COLORS.cardBg,
+    position: "relative",
+    top: 1
+  }),
   victimName: { fontFamily: SYS_FONT, fontSize: 15, fontWeight: 700, margin: "4px 0 8px", color: COLORS.wine },
   bodyText: { fontSize: 12.5, lineHeight: 1.5, color: COLORS.ink, margin: 0, fontFamily: SYS_FONT },
   bodyTextLg: { fontSize: 13, lineHeight: 1.6, color: COLORS.ink, margin: "0 0 10px", fontFamily: SYS_FONT },
@@ -870,57 +713,61 @@ const S = {
   castOcc: { fontSize: 11.5, color: "#555", margin: "2px 0 6px", fontStyle: "italic" },
   castBio: { fontSize: 12, color: "#333", lineHeight: 1.45, margin: "0 0 6px" },
   statementText: { fontSize: 12.5, color: COLORS.ink, lineHeight: 1.5, margin: 0, fontStyle: "italic" },
-  dossierBox: { marginTop: 8, padding: "8px 10px", background: "#fff8d0", ...bevel.sunkenSoft },
+  dossierBox: __spreadValues({ marginTop: 8, padding: "8px 10px", background: "#fff8d0" }, bevel.sunkenSoft),
   dossierLabel: { fontSize: 10.5, color: COLORS.wine, fontWeight: 700, marginBottom: 4, letterSpacing: 0.3 },
   roundHeading: {
-    fontFamily: SYS_FONT, fontSize: 12.5, color: "#fff", background: COLORS.titleBarFrom,
-    marginBottom: 6, padding: "3px 8px", fontWeight: 700,
+    fontFamily: SYS_FONT,
+    fontSize: 12.5,
+    color: "#fff",
+    background: COLORS.titleBarFrom,
+    marginBottom: 6,
+    padding: "3px 8px",
+    fontWeight: 700
   },
   clueRow: { display: "flex", gap: 8, marginBottom: 8, alignItems: "flex-start" },
   clueDot: { width: 6, height: 6, background: COLORS.wine, marginTop: 6, flexShrink: 0 },
-  suspectBtn: {
-    display: "block", width: "100%", textAlign: "left", background: COLORS.face, color: COLORS.ink,
-    padding: "9px 12px", fontSize: 12.5, fontFamily: SYS_FONT,
-    marginBottom: 6, cursor: "pointer", ...bevel.raisedSoft,
-  },
-  suspectBtnActive: {
-    display: "block", width: "100%", textAlign: "left", background: "#ffff88", color: COLORS.ink,
-    padding: "9px 12px", fontSize: 12.5, fontFamily: SYS_FONT,
-    marginBottom: 6, cursor: "pointer", fontWeight: 700, ...bevel.sunkenSoft,
-  },
+  suspectBtn: __spreadValues({
+    display: "block",
+    width: "100%",
+    textAlign: "left",
+    background: COLORS.face,
+    color: COLORS.ink,
+    padding: "9px 12px",
+    fontSize: 12.5,
+    fontFamily: SYS_FONT,
+    marginBottom: 6,
+    cursor: "pointer"
+  }, bevel.raisedSoft),
+  suspectBtnActive: __spreadValues({
+    display: "block",
+    width: "100%",
+    textAlign: "left",
+    background: "#ffff88",
+    color: COLORS.ink,
+    padding: "9px 12px",
+    fontSize: 12.5,
+    fontFamily: SYS_FONT,
+    marginBottom: 6,
+    cursor: "pointer",
+    fontWeight: 700
+  }, bevel.sunkenSoft),
   revealCard: { background: "#fff0f0" },
   revealName: { fontFamily: "'VT323', monospace", fontSize: 30, color: COLORS.wine, margin: "4px 0 12px" },
   solutionText: { marginTop: 4 },
   voteResultRow: {
-    display: "flex", justifyContent: "space-between", padding: "7px 4px",
-    borderTop: `1px dashed ${COLORS.faceLo}`, fontSize: 12.5,
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "7px 4px",
+    borderTop: `1px dashed ${COLORS.faceLo}`,
+    fontSize: 12.5
   },
-  voteCount: { color: "#fff", background: COLORS.wine, padding: "1px 8px", fontWeight: 700 },
+  voteCount: { color: "#fff", background: COLORS.wine, padding: "1px 8px", fontWeight: 700 }
 };
-
 function AOLWindow({ title, menu, children }) {
-  return (
-    <div style={S.windowOuter}>
-      <div style={S.titleBar}>
-        <div style={S.titleBarLeft}><span>{title}</span></div>
-        <div style={S.winBtnRow}>
-          <div style={S.winBtn}>_</div>
-          <div style={S.winBtn}>&#9633;</div>
-          <div style={S.winBtn}>&times;</div>
-        </div>
-      </div>
-      {menu && (
-        <div style={S.menuBar}>
-          {menu.map((m) => <span key={m}>{m}</span>)}
-        </div>
-      )}
-      <div style={S.windowBody}>{children}</div>
-    </div>
-  );
+  return /* @__PURE__ */ React.createElement("div", { style: S.windowOuter }, /* @__PURE__ */ React.createElement("div", { style: S.titleBar }, /* @__PURE__ */ React.createElement("div", { style: S.titleBarLeft }, /* @__PURE__ */ React.createElement("span", null, title)), /* @__PURE__ */ React.createElement("div", { style: S.winBtnRow }, /* @__PURE__ */ React.createElement("div", { style: S.winBtn }, "_"), /* @__PURE__ */ React.createElement("div", { style: S.winBtn }, "\u25A1"), /* @__PURE__ */ React.createElement("div", { style: S.winBtn }, "\xD7"))), menu && /* @__PURE__ */ React.createElement("div", { style: S.menuBar }, menu.map((m) => /* @__PURE__ */ React.createElement("span", { key: m }, m))), /* @__PURE__ */ React.createElement("div", { style: S.windowBody }, children));
 }
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(/* @__PURE__ */ React.createElement(App, null));
 </script>
 </body>
 </html>
